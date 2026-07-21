@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties (Design Tokens) ─────────────────────────────── */
+@layer base {
+  :root {
+    /* Brand */
+    --color-primary:     theme('colors.primary.700');
+    --color-primary-lt:  theme('colors.primary.500');
+    --color-accent:      theme('colors.accent.500');
+    --color-accent-lt:   theme('colors.accent.400');
+
+    /* Surface */
+    --color-bg:          theme('colors.neutral.50');
+    --color-surface:     theme('colors.white');
+    --color-surface-alt: theme('colors.neutral.100');
+    --color-border:      theme('colors.neutral.200');
+
+    /* Text */
+    --color-text:        theme('colors.neutral.900');
+    --color-text-muted:  theme('colors.neutral.500');
+    --color-text-subtle: theme('colors.neutral.400');
+
+    /* Navbar */
+    --navbar-height: 5rem;
+
+    /* Transitions */
+    --transition-base: 300ms cubic-bezier(0.19, 1, 0.22, 1);
+    --transition-slow: 600ms cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  /* Dark-ready token overrides — activate by adding class="dark" to <html> */
+  .dark {
+    --color-bg:          theme('colors.neutral.950');
+    --color-surface:     theme('colors.neutral.900');
+    --color-surface-alt: theme('colors.neutral.800');
+    --color-border:      theme('colors.neutral.700');
+    --color-text:        theme('colors.neutral.50');
+    --color-text-muted:  theme('colors.neutral.400');
+    --color-text-subtle: theme('colors.neutral.500');
+  }
+}
+
+/* ─── Base Resets & Typography ───────────────────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: auto; /* Lenis handles smooth scroll */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-neutral-50 text-neutral-900 font-sans;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-semibold leading-tight tracking-tight;
+  }
+
+  h1 { @apply text-4xl md:text-5xl lg:text-6xl; }
+  h2 { @apply text-3xl md:text-4xl lg:text-5xl; }
+  h3 { @apply text-2xl md:text-3xl; }
+  h4 { @apply text-xl md:text-2xl; }
+  h5 { @apply text-lg md:text-xl; }
+  h6 { @apply text-base md:text-lg; }
+
+  p {
+    @apply leading-relaxed;
+  }
+
+  a {
+    @apply transition-colors;
+    transition-duration: 200ms;
+  }
+
+  img, video {
+    @apply max-w-full;
+  }
+
+  ::selection {
+    @apply bg-primary-200 text-primary-900;
+  }
+}
+
+/* ─── Component Utilities ────────────────────────────────────────────────── */
+@layer components {
+  .section {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+
+  .section-sm {
+    @apply py-10 md:py-16;
+  }
+
+  .container-rj {
+    @apply mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-7xl;
+  }
+
+  .container-rj-wide {
+    @apply mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[88rem];
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-medium
+           transition-all duration-300 focus-visible:outline-none focus-visible:ring-2
+           focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:opacity-50
+           disabled:pointer-events-none select-none;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary-700 text-white hover:bg-primary-800 active:scale-[0.98]
+           px-6 py-3 text-sm;
+  }
+
+  .btn-secondary {
+    @apply btn border border-primary-700 text-primary-700 hover:bg-primary-50
+           active:scale-[0.98] px-6 py-3 text-sm;
+  }
+
+  .btn-accent {
+    @apply btn bg-accent-500 text-white hover:bg-accent-600 active:scale-[0.98]
+           px-6 py-3 text-sm;
+  }
+
+  .btn-ghost {
+    @apply btn text-neutral-700 hover:bg-neutral-100 active:scale-[0.98]
+           px-4 py-2 text-sm;
+  }
+
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-primary-700 to-primary-500 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-accent {
+    @apply bg-gradient-to-r from-accent-600 to-accent-400 bg-clip-text text-transparent;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-soft border border-neutral-100
+           transition-shadow duration-300 hover:shadow-soft-lg;
+  }
+
+  .divider {
+    @apply border-t border-neutral-200;
+  }
+}
+
+/* ─── Lenis ──────────────────────────────────────────────────────────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ─── Ripple ────────────────────────────────────────────────────────────── */
+@keyframes ripple {
+  to { transform: scale(4); opacity: 0; }
+}
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  transform: scale(0);
+  animation: ripple 600ms cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  pointer-events: none;
+}
+
+/* ─── Skeleton shimmer ───────────────────────────────────────────────────── */
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position:  200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #e7e5e4 25%, #f5f5f4 50%, #e7e5e4 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* ─── Glass ──────────────────────────────────────────────────────────────── */
+.glass {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.glass-light {
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+/* ─── Swiper overrides ───────────────────────────────────────────────────── */
+.swiper-pagination-bullet-active {
+  @apply bg-primary-700 !important;
+}
