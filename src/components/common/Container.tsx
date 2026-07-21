@@ -1,9 +1,9 @@
-import type { HTMLAttributes } from 'react'
+import type { HTMLAttributes, ElementType } from 'react'
 import { cn } from '@/utils'
 
 interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
   size?: 'sm' | 'md' | 'lg' | 'xl' | 'wide' | 'full'
-  as?: keyof JSX.IntrinsicElements
+  as?: ElementType
 }
 
 const sizeMap: Record<NonNullable<ContainerProps['size']>, string> = {
