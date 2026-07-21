@@ -1,6 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { ShieldCheck, Users, Package, Truck } from 'lucide-react'
-import { SectionWrapper } from '@/components/ui/SectionWrapper'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { IconWrapper }    from '@/components/ui/IconWrapper'
 import { cn }             from '@/utils'
@@ -70,15 +69,10 @@ function PillarItem({
     <motion.div
       variants={pillarVariants}
       className={cn(
-        'group relative flex flex-col items-center text-center gap-4 px-6 py-8',
-        // Vertical divider on desktop — right edge of every card except last
-        !isLast && [
-          'lg:after:content-[""] lg:after:absolute lg:after:right-0 lg:after:top-1/2',
-          'lg:after:-translate-y-1/2 lg:after:h-16 lg:after:w-px',
-          'lg:after:bg-gradient-to-b lg:after:from-transparent',
-          'lg:after:via-primary-200 lg:after:to-transparent',
-        ],
-      )}
+  'group relative flex flex-col items-center text-center gap-4 px-6 py-8',
+  !isLast &&
+    'lg:after:content-[""] lg:after:absolute lg:after:right-0 lg:after:top-1/2 lg:after:-translate-y-1/2 lg:after:h-16 lg:after:w-px lg:after:bg-gradient-to-b lg:after:from-transparent lg:after:via-primary-200 lg:after:to-transparent',
+)}
     >
       {/* ── Hover glow — opacity only, GPU composited ── */}
       <div
