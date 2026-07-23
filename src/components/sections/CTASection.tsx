@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { ArrowRight, Phone, CheckCircle2 } from 'lucide-react'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Button }         from '@/components/ui/Button'
@@ -51,7 +51,6 @@ const chipVariants = {
 // ─── CTASection ───────────────────────────────────────────────────────────────
 
 export function CTASection() {
-  const reducedMotion = useReducedMotion() ?? false
 
   return (
     <section
