@@ -4,7 +4,9 @@ import { TrustSection }            from '@/components/sections/TrustSection'
 import { CompanyStorySection }     from '@/components/sections/CompanyStorySection'
 import { ProductsShowcaseSection } from '@/components/sections/ProductsShowcaseSection'
 import { ProductQualitySection }   from '@/components/sections/ProductQualitySection'
-import { StatisticsSection }       from '@/components/sections/StatisticsSection'
+import { StatisticsSection }        from '@/components/sections/StatisticsSection'
+import { BusinessProcessSection }   from '@/components/sections/BusinessProcessSection'
+import { CTASection }               from '@/components/sections/CTASection'
 import { SITE } from '@/constants'
 
 export default function HomePage() {
@@ -21,6 +23,8 @@ export default function HomePage() {
       <ProductsShowcaseSection />
       <ProductQualitySection />
       <StatisticsSection />
+      <BusinessProcessSection />
+      <CTASection />
     </>
   )
 }
