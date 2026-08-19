@@ -55,6 +55,7 @@ export function Footer() {
 
   return (
     <footer
+      id="footer"
       aria-label={`${SITE.name} site footer`}
       className="relative bg-gradient-to-b from-primary-950 to-neutral-950
                  text-neutral-400 overflow-hidden"

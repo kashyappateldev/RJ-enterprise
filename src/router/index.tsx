@@ -1,38 +1,95 @@
 import { lazy, Suspense } from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { Layout } from '@/components/layout'
+import {
+  createBrowserRouter,
+  Outlet,
+  ScrollRestoration,
+} from 'react-router-dom'
 
-const HomePage     = lazy(() => import('@/pages/HomePage'))
+// ─────────────────────────────────────────────────────────────────────────────
+// Lazy-loaded pages
+// ─────────────────────────────────────────────────────────────────────────────
+
+const HomePage = lazy(() => import('@/pages/HomePage'))
+
+const ProductsPage = lazy(() => import('@/pages/ProductsPage'))
+
+const ProductDetailPage = lazy(() => import('@/pages/ProductDetailPage'))
+
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
 
-const PageLoader = () => (
-  <div className="min-h-[60vh] flex items-center justify-center">
-    <div className="w-8 h-8 rounded-full border-2 border-primary-700 border-t-transparent animate-spin" />
-  </div>
-)
+// ─────────────────────────────────────────────────────────────────────────────
+// Loading screen
+// ─────────────────────────────────────────────────────────────────────────────
 
-const wrap = (Page: React.ComponentType) => (
-  <Suspense fallback={<PageLoader />}>
-    <Page />
-  </Suspense>
-)
+function PageLoader() {
+  return (
+    <div className="min-h-screen bg-primary-950 flex items-center justify-center">
+      <div className="flex flex-col items-center gap-4">
+        <div
+          className="
+            w-10 h-10
+            rounded-full
+            border-2 border-white/10
+            border-t-accent-400
+            animate-spin
+          "
+        />
 
-const router = createBrowserRouter([
+        <p className="text-sm text-white/50">
+          Loading...
+        </p>
+      </div>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Suspense wrapper
+// ─────────────────────────────────────────────────────────────────────────────
+
+function LazyPage() {
+  return (
+    <Suspense fallback={<PageLoader />}>
+      <Outlet />
+    </Suspense>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Router
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const router = createBrowserRouter([
   {
-    path: '/',
-    element: <Layout />,
+    element: (
+      <>
+        <ScrollRestoration />
+        <LazyPage />
+      </>
+    ),
+
     children: [
-      { index: true, element: wrap(HomePage) },
-      // { path: 'about',    element: wrap(AboutPage) },
-      // { path: 'products', element: wrap(ProductsPage) },
-      // { path: 'services', element: wrap(ServicesPage) },
-      // { path: 'blog',     element: wrap(BlogPage) },
-      // { path: 'contact',  element: wrap(ContactPage) },
-      { path: '*', element: wrap(NotFoundPage) },
+      {
+        path: '/',
+        element: <HomePage />,
+      },
+
+      {
+        path: '/products',
+        element: <ProductsPage />,
+      },
+
+      {
+        path: '/products/:id',
+        element: <ProductDetailPage />,
+      },
+
+      {
+        path: '*',
+        element: <NotFoundPage />,
+      },
     ],
   },
 ])
 
-export function AppRouter() {
-  return <RouterProvider router={router} />
-}
+export default router
