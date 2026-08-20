@@ -52,8 +52,8 @@ export function ProductCard({
         'transition-shadow transition-colors duration-500',
 
         compactOnMobile
-        ? 'rounded-xl sm:rounded-3xl shadow-sm sm:shadow-soft'
-        : '',
+          ? 'rounded-xl sm:rounded-3xl shadow-sm sm:shadow-soft'
+          : '',
 
         className,
       )}
@@ -103,7 +103,8 @@ export function ProductCard({
           <div
             className={cn(
               'absolute top-3 left-3 z-20',
-              compactOnMobile && 'top-1.5 left-1.5 sm:top-3 sm:left-3',
+              compactOnMobile &&
+                'top-1.5 left-1.5 sm:top-3 sm:left-3',
             )}
           >
             <Badge variant="accent" size="sm">
@@ -181,14 +182,12 @@ export function ProductCard({
             'inline-flex items-center gap-1.5 text-sm font-semibold',
             'text-primary-700 hover:gap-3 transition-all duration-300',
 
-            compactOnMobile &&
-              'gap-0.5 text-[9px] sm:gap-1.5 sm:text-sm',
+            // Hide Learn More on mobile, keep it from sm breakpoint upward
+            compactOnMobile && 'hidden sm:inline-flex',
           )}
           aria-label={`${ctaLabel}: ${title}`}
         >
-          <span className={compactOnMobile ? 'sm:inline' : undefined}>
-            {ctaLabel}
-          </span>
+          {ctaLabel}
 
           <ArrowRight
             size={compactOnMobile ? 11 : 14}
