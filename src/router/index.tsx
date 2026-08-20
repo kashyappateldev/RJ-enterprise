@@ -1,56 +1,45 @@
 import { lazy, Suspense } from 'react'
-import {
-  createBrowserRouter,
-  Outlet,
-  ScrollRestoration,
-} from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
+import AboutPage from '@/pages/AboutPage'
+
+import { Layout } from '@/components/layout/Layout'
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Lazy-loaded pages
+// Lazy pages
 // ─────────────────────────────────────────────────────────────────────────────
 
 const HomePage = lazy(() => import('@/pages/HomePage'))
 
 const ProductsPage = lazy(() => import('@/pages/ProductsPage'))
 
-const ProductDetailPage = lazy(() => import('@/pages/ProductDetailPage'))
+const ProductDetailPage = lazy(() =>
+  import('@/pages/ProductDetailPage'),
+)
 
-const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
+const NotFoundPage = lazy(() =>
+  import('@/pages/NotFoundPage'),
+)
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Loading screen
 // ─────────────────────────────────────────────────────────────────────────────
 
-function PageLoader() {
+function PageLoading() {
   return (
-    <div className="min-h-screen bg-primary-950 flex items-center justify-center">
-      <div className="flex flex-col items-center gap-4">
-        <div
-          className="
-            w-10 h-10
-            rounded-full
-            border-2 border-white/10
-            border-t-accent-400
-            animate-spin
-          "
-        />
-
-        <p className="text-sm text-white/50">
-          Loading...
-        </p>
-      </div>
+    <div className="min-h-[60vh] flex items-center justify-center bg-white">
+      <div className="w-8 h-8 rounded-full border-2 border-primary-200 border-t-primary-700 animate-spin" />
     </div>
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Suspense wrapper
-// ─────────────────────────────────────────────────────────────────────────────
-
-function LazyPage() {
+function LazyPage({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <Suspense fallback={<PageLoader />}>
-      <Outlet />
+    <Suspense fallback={<PageLoading />}>
+      {children}
     </Suspense>
   )
 }
@@ -61,35 +50,48 @@ function LazyPage() {
 
 export const router = createBrowserRouter([
   {
-    element: (
-      <>
-        <ScrollRestoration />
-        <LazyPage />
-      </>
-    ),
+    element: <Layout />,
 
     children: [
       {
+        path: '/about',
+        element: <AboutPage />,
+      },
+      {
         path: '/',
-        element: <HomePage />,
+        element: (
+          <LazyPage>
+            <HomePage />
+          </LazyPage>
+        ),
       },
 
       {
         path: '/products',
-        element: <ProductsPage />,
+        element: (
+          <LazyPage>
+            <ProductsPage />
+          </LazyPage>
+        ),
       },
 
       {
         path: '/products/:id',
-        element: <ProductDetailPage />,
+        element: (
+          <LazyPage>
+            <ProductDetailPage />
+          </LazyPage>
+        ),
       },
 
       {
         path: '*',
-        element: <NotFoundPage />,
+        element: (
+          <LazyPage>
+            <NotFoundPage />
+          </LazyPage>
+        ),
       },
     ],
   },
 ])
-
-export default router

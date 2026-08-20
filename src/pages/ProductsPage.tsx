@@ -34,23 +34,63 @@ const handleReset = useCallback(() => {
 }, [])
 
   // Derived filtered list — recomputes only when query or category changes
-  const filteredProducts = useMemo(() => {
-    const normalised = query.trim().toLowerCase()
+const filteredProducts = useMemo(() => {
+  const normalised = query.trim().toLocaleLowerCase()
 
-    return PRODUCTS.filter((p) => {
-      // Category filter
-      const categoryMatch =
-        activeCategory === 'All' || p.category === (activeCategory as ProductCategory)
+  return PRODUCTS.filter((product) => {
+    // ─────────────────────────────────────────────
+    // Category filter
+    // ─────────────────────────────────────────────
 
-      // Search filter — name + tags
-      const searchMatch =
-        !normalised ||
-        p.name.toLowerCase().includes(normalised) ||
-        p.tags?.some((t) => t.toLowerCase().includes(normalised))
+    const categoryMatch =
+      activeCategory === 'All' ||
+      product.category === (activeCategory as ProductCategory)
 
-      return categoryMatch && searchMatch
-    })
-  }, [query, activeCategory])
+    // If there is no search query, only category filtering is needed.
+    if (!normalised) {
+      return categoryMatch
+    }
+
+    // ─────────────────────────────────────────────
+    // Build searchable product content
+    // ─────────────────────────────────────────────
+
+    const searchableText = [
+      // Product name
+      product.name,
+
+      // Category
+      product.category,
+
+      // Description
+      product.description,
+
+      // Origin
+      product.origin ?? '',
+
+      // Tags
+      ...(product.tags ?? []),
+
+      // Multilingual names
+      ...Object.values(product.languages ?? {}),
+
+      // Language names themselves
+      ...Object.keys(product.languages ?? {}),
+
+      // Specification labels
+      ...Object.keys(product.specifications ?? {}),
+
+      // Specification values
+      ...Object.values(product.specifications ?? {}),
+    ]
+      .join(' ')
+      .toLocaleLowerCase()
+
+    const searchMatch = searchableText.includes(normalised)
+
+    return categoryMatch && searchMatch
+  })
+}, [query, activeCategory])
 
   // Key for ProductGrid re-stagger — changes whenever filters change
   const gridKey = `${activeCategory}-${query}`

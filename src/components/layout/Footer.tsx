@@ -1,37 +1,40 @@
-import { Link }                                    from 'react-router-dom'
-import { motion, useReducedMotion }                from 'framer-motion'
-import { MapPin, Phone, Mail,
-         Facebook, Instagram, Linkedin, Twitter }  from 'lucide-react'
-import { Container }                               from '@/components/common/Container'
-import { cn }                                      from '@/utils'
-import { SITE, EASE,
-         FOOTER_QUICK_LINKS, FOOTER_CONTACT,
-         FOOTER_SOCIAL, FOOTER_COPYRIGHT,
-         FOOTER_LEGAL_LINKS }                      from '@/constants'
-import type { FooterContact, FooterSocial }        from '@/constants'
+
+import { Link } from 'react-router-dom'
+import { motion, useReducedMotion } from 'framer-motion'
+import { MapPin, Phone, Mail, MessageCircle } from 'lucide-react'
+import { Container } from '@/components/common/Container'
+import { cn } from '@/utils'
+import {
+  SITE,
+  EASE,
+  BRAND,
+  FOOTER_QUICK_LINKS,
+  FOOTER_CONTACT,
+  FOOTER_SOCIAL,
+  FOOTER_COPYRIGHT,
+  FOOTER_LEGAL_LINKS,
+} from '@/constants'
+import type { FooterContact, FooterSocial } from '@/constants'
 
 // ─── Icon maps — resolved at module scope, never recreated ───────────────────
 
 const SOCIAL_ICON_MAP = {
-  facebook:  Facebook,
-  instagram: Instagram,
-  linkedin:  Linkedin,
-  twitter:   Twitter,
+  whatsapp: MessageCircle,
 } as const satisfies Record<FooterSocial['icon'], React.ElementType>
 
 const CONTACT_ICON_MAP = {
   address: MapPin,
-  phone:   Phone,
-  email:   Mail,
+  phone: Phone,
+  email: Mail,
 } as const satisfies Record<FooterContact['type'], React.ElementType>
 
 // ─── Animation variant — module-scope ────────────────────────────────────────
 
 const footerVariant = {
-  hidden:  { opacity: 0, y: 32 },
+  hidden: { opacity: 0, y: 32 },
   visible: {
     opacity: 1,
-    y:       0,
+    y: 0,
     transition: { duration: 0.7, ease: EASE.outExpo },
   },
 }
@@ -40,17 +43,16 @@ const footerVariant = {
 
 export function Footer() {
   const reducedMotion = useReducedMotion() ?? false
-  const year          = new Date().getFullYear()
+  const year = new Date().getFullYear()
 
-  // When reduced motion is preferred, skip the reveal animation entirely —
-  // no hidden→visible flash, no layout shift, no wasted composite layer.
+  // When reduced motion is preferred, skip the reveal animation entirely.
   const motionProps = reducedMotion
     ? {}
     : {
-        variants:    footerVariant,
-        initial:     'hidden' as const,
+        variants: footerVariant,
+        initial: 'hidden' as const,
         whileInView: 'visible' as const,
-        viewport:    { once: true, margin: '-60px' },
+        viewport: { once: true, margin: '-60px' },
       }
 
   return (
@@ -91,13 +93,13 @@ export function Footer() {
                            focus-visible:ring-offset-primary-950 rounded-lg"
                 aria-label={`${SITE.name} — go to homepage`}
               >
-                <span
-                  className="w-9 h-9 rounded-xl bg-primary-700 flex items-center
-                             justify-center text-white text-sm font-bold shrink-0"
-                  aria-hidden="true"
-                >
-                  RJ
-                </span>
+                <img
+                  src={BRAND.logo}
+                  alt={SITE.name}
+                  className="h-12 w-auto object-contain"
+                  loading="lazy"
+                />
+
                 <span className="font-display font-bold text-lg text-white">
                   {SITE.name}
                 </span>
@@ -107,10 +109,15 @@ export function Footer() {
                 {SITE.tagline}. Connecting trusted farmers with businesses across India.
               </p>
 
-              {/* Social icons */}
-              <div className="flex items-center gap-2.5" role="list" aria-label="Social media links">
+              {/* ── WhatsApp ── */}
+              <div
+                className="flex items-center gap-2.5"
+                role="list"
+                aria-label="Social media links"
+              >
                 {FOOTER_SOCIAL.map((s) => {
                   const Icon = SOCIAL_ICON_MAP[s.icon]
+
                   return (
                     <a
                       key={s.platform}
@@ -142,6 +149,7 @@ export function Footer() {
               <h3 className="text-white font-semibold text-xs uppercase tracking-[0.12em]">
                 Quick Links
               </h3>
+
               <nav aria-label="Footer quick links">
                 <ul className="flex flex-col gap-2.5">
                   {FOOTER_QUICK_LINKS.map((link) => (
@@ -167,7 +175,7 @@ export function Footer() {
               <h3 className="text-white font-semibold text-xs uppercase tracking-[0.12em]">
                 Business Information
               </h3>
-              {/* <address> is the correct semantic element for contact details */}
+
               <address className="not-italic flex flex-col gap-3">
                 {FOOTER_CONTACT.map((item) => {
                   const Icon = CONTACT_ICON_MAP[item.type]
@@ -183,10 +191,13 @@ export function Footer() {
                           isPlaceholder ? 'text-neutral-600' : 'text-primary-500',
                         )}
                       />
+
                       <span
                         className={cn(
                           'text-sm leading-relaxed',
-                          isPlaceholder ? 'text-neutral-600 italic' : 'text-neutral-400',
+                          isPlaceholder
+                            ? 'text-neutral-600 italic'
+                            : 'text-neutral-400',
                         )}
                       >
                         {item.value}
@@ -219,12 +230,15 @@ export function Footer() {
               <h3 className="text-white font-semibold text-xs uppercase tracking-[0.12em]">
                 Follow Us
               </h3>
+
               <p className="text-sm text-neutral-500 leading-relaxed">
                 Stay connected for updates on premium agricultural products and sourcing.
               </p>
+
               <ul className="flex flex-col gap-2.5">
                 {FOOTER_SOCIAL.map((s) => {
                   const Icon = SOCIAL_ICON_MAP[s.icon]
+
                   return (
                     <li key={s.platform}>
                       <a
@@ -247,7 +261,6 @@ export function Footer() {
                 })}
               </ul>
             </div>
-
           </div>
 
           {/* ── Bottom bar ── */}
@@ -259,7 +272,9 @@ export function Footer() {
           >
             <p>
               © {FOOTER_COPYRIGHT.year ?? year}{' '}
-              <span className="text-neutral-500">{FOOTER_COPYRIGHT.companyName}</span>
+              <span className="text-neutral-500">
+                {FOOTER_COPYRIGHT.companyName}
+              </span>
               . All rights reserved.
             </p>
 
@@ -286,3 +301,4 @@ export function Footer() {
     </footer>
   )
 }
+

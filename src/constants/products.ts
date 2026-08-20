@@ -399,44 +399,57 @@ export const PRODUCTS: Product[] = [
   // 7. KALA JEERA / BLACK CUMIN
   // ============================================================
 
-  {
-    id: "kala-jeera",
-    name: "Kala Jeera (Black Cumin)",
-    category: "Spices",
+ {
+  id: "kala-jeera",
+  name: "Kala Jeera (Black Cumin)",
+  category: "Spices",
 
-    image: kalaJeera,
-    alt: "Premium quality black cumin (Kala Jeera)",
+  image: kalaJeera,
+  alt: "Premium quality black cumin (Kala Jeera)",
 
-    description:
-      "Premium black cumin seeds with an intense aroma and distinctive flavor, widely used in premium spice blends and culinary applications.",
+  description:
+    "Premium black cumin seeds with an intense aroma and distinctive flavor, widely used in premium spice blends and culinary applications.",
 
-    featured: false,
-    available: true,
-    origin: "India",
+  featured: false,
+  available: true,
+  origin: "India",
 
-    tags: [
-      "kala jeera",
-      "black cumin",
-      "black jeera",
-      "spices",
-    ],
+  tags: [
+    "kala jeera",
+    "black cumin",
+    "black jeera",
+    "black cumin seed",
+    "black seeds",
+    "nigella seeds",
+    "kalonji",
+    "spices",
+  ],
 
-    specifications: {
-      "Botanical Name": "Nigella Sativa",
-      "Common Names":
-        "Black Cumin Seed, Black Seeds, Nigella Seeds, Kalonji",
-      Purity: "99%, 99.50%, 99.90%",
-      Moisture: "Max. 7%",
-      "Oil Contents": "36%",
-      "Non GMO": "Yes",
-      Origin: "India",
-    },
+  specifications: {
+    "Common Names":
+      "Black Cumin Seed, Black Seeds, Nigella Seeds, Kalonji",
 
-    languages: {
-      Gujarati: "કાળું જીરું",
-      Hindi: "काला जीरा",
-    },
+    "Purity":
+      "99%, 99.50%, 99.90%",
+
+    "Moisture":
+      "Max. 7%",
+
+    "Oil Contents":
+      "36%",
+
+    "Non GMO":
+      "Yes",
+
+    "Origin":
+      "India",
   },
+
+  languages: {
+    Gujarati: "કાળું જીરું",
+    Hindi: "काला जीरा",
+  },
+},
 
   // ============================================================
   // 8. SUVA / DILL SEEDS
@@ -461,17 +474,30 @@ export const PRODUCTS: Product[] = [
       "suva",
       "dill",
       "dill seeds",
+      "dill seed",
+      "garden dill",
+      "sowa",
       "spices",
     ],
 
     specifications: {
-      "Botanical Name": "Anethum Graveolens",
-      "Common Names": "Dill, Dill Seed, Garden Dill, Sowa",
-      Purity: "99%, 99.50%, 99.90%",
-      Moisture: "Max. 10%",
-      Cleaning: "Machine Clean / Sortex Clean",
-      "Non GMO": "Yes",
-      Origin: "India",
+      "Common Names":
+        "Dill, Dill Seed, Garden Dill, Sowa",
+
+      "Purity":
+        "99%, 99.50%, 99.90%",
+
+      "Moisture":
+        "Max. 10%",
+
+      "Cleaning":
+        "Machine Clean / Sortex Clean",
+
+      "Non GMO":
+        "Yes",
+
+      "Origin":
+        "India",
     },
 
     languages: {

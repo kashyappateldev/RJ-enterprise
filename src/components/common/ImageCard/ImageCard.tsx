@@ -5,7 +5,7 @@ import { TRANSITION } from '@/constants'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
-type AspectRatio = 'square' | 'video' | 'portrait' | 'wide' | 'auto'
+type AspectRatio = 'square' | 'video' | 'portrait' | 'landscape' | 'wide' | 'auto'
 type Rounded     = 'md' | 'lg' | 'xl' | '2xl' | '3xl'
 
 export interface ImageCardProps {
@@ -38,11 +38,12 @@ export interface ImageCardProps {
 // ─── Maps ────────────────────────────────────────────────────────────────────
 
 const aspectMap: Record<AspectRatio, string> = {
-  square:   'aspect-square',
-  video:    'aspect-video',
-  portrait: 'aspect-[3/4]',
-  wide:     'aspect-[16/7]',
-  auto:     '',
+  square:    'aspect-square',
+  video:     'aspect-video',
+  portrait:  'aspect-[3/4]',
+  landscape: 'aspect-[3/2]',
+  wide:      'aspect-[16/7]',
+  auto:      '',
 }
 
 const roundedMap: Record<Rounded, string> = {

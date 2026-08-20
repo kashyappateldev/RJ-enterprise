@@ -199,11 +199,11 @@ export function CompanyStorySection() {
               />
 
               <ImageCard
-                image="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80&auto=format&fit=crop"
-                alt="RJ Enterprise — premium agricultural sourcing across India"
-                aspect="portrait"
+                image="/images/about-farmer-business.jpg"
+                alt="Farmer and agricultural business representative building a trusted partnership in an Indian field"
+                aspect="landscape"
                 rounded="3xl"
-                overlayOpacity={0.28}
+                overlayOpacity={0.18}
                 disableHover={reducedMotion}
                 lazy
                 className="shadow-[0_24px_64px_rgba(21,128,61,0.18)]"

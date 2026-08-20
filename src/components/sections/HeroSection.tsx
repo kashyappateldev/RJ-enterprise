@@ -214,7 +214,7 @@ export function HeroSection() {
                 variant="accent"
                 size="md"
                 dot
-                className="bg-accent-500/15 text-accent-300 border-accent-500/30 backdrop-blur-sm"
+                className="bg-accent-500/15 text-[#A8C686] border-accent-500/30 backdrop-blur-sm"
               >
                 Trusted All Across India 🌿
               </Badge>
